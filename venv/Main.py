@@ -207,6 +207,39 @@ def t_test_unabhaengig():
 
     input("\nEingabe Taste drücken um fortzufahren...")
 
+
+def t_test_abhaengig():
+    print("t-Test Abhängige Stichproben")
+
+    print("(x̄D) Mittelwert der Stichprobe:")
+    sample = float(input().replace(",", "."))
+
+    print("(μ) Mittelwert der Population:")
+    sample2 = float(input().replace(",", "."))
+
+    print("(sx̄D) Standardfehler der Differenz:")
+    std = float(input().replace(",", "."))
+
+    print("(n) Umfang der Stichprobe:")
+    sample_size = int(input())
+
+    print("(α) Signifikanz Niveau:")
+    alpha = float(input().replace(",", "."))
+
+    df = sample_size-1
+
+    print("T-Value: " + str(round((sample-sample2)/std, 4)))
+    print("df: " + str(df))
+    t_crit_left = scipy.stats.t.ppf(alpha, df)
+    t_crit_right = scipy.stats.t.ppf(1 - alpha, df)
+    t_crit_both = scipy.stats.t.ppf(1 - alpha / 2, df)
+    print("\nT-Kritisch")
+    print("Linksseitig: " + str(t_crit_left))
+    print("Rechtsseitig: " + str(t_crit_right))
+    print("Zweiseitig: " + str(t_crit_both))
+
+    input("\nEingabe Taste drücken um fortzufahren...")
+
 def chi_squared():
     print("\nChi Quadrat Konfidenz Interval")
 
@@ -348,20 +381,21 @@ def display_menu():
     print("4. Z-Test (n >= 30)")
     print("5. T-Test (n < 30)")
     print("6. T-Test unabhängige Stichproben")
-    print("7. Chi-Quadrat Konfidenzinterval")
-    print("8. Tschebycheff-Ungleichung (Keine bestimmte Verteilung)")
+    print("7. T-Test abhängige Stichproben")
+    print("8. Chi-Quadrat Konfidenzinterval")
+    print("9. Tschebycheff-Ungleichung (Keine bestimmte Verteilung)")
 
     print("\n--- Verschiedenes ---")
-    print("9. Confusion Matrix")
-    print("10. Kontigenz Koeffizient nach Pearson")
+    print("10. Confusion Matrix")
+    print("11. Kontigenz Koeffizient nach Pearson")
 
-    print("\n11. Exit")
+    print("\n12. Exit")
 
 
 # Main program
 while True:
     display_menu()
-    choice = input("\nEnter your choice (1-11): ")
+    choice = input("\nEnter your choice (1-12): ")
 
     if choice == "1":
         calculate_hypergeometric_probability()
@@ -376,14 +410,16 @@ while True:
     elif choice == "6":
         t_test_unabhaengig()
     elif choice == "7":
-        chi_squared()
+        t_test_abhaengig()
     elif choice == "8":
-        tschebyscheff()
+        chi_squared()
     elif choice == "9":
-        metric_calc()
+        tschebyscheff()
     elif choice == "10":
-        contigenz()
+        metric_calc()
     elif choice == "11":
+        contigenz()
+    elif choice == "12":
         print("Exiting the program...")
         break
     else:
